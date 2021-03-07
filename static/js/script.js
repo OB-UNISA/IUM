@@ -1,4 +1,4 @@
-window.onload = function (){
-  var getInput = prompt("Hey type something here: ");
-   localStorage.setItem("storageName",getInput);
+window.onload = function () {
+  const getInput = prompt('Hey type something here: ')
+  localStorage.setItem('storageName', getInput)
 }
