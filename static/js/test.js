@@ -1,1 +1,1 @@
-window.onload = alert(localStorage.getItem("storageName"));
+window.onload = alert(localStorage.getItem('storageName'))
