@@ -9,10 +9,17 @@ app = Flask('')
 def home():
     return render_template('index.html')
 
+@app.errorhandler(404)
+@app.errorhandler(403)
+@app.errorhandler(410)
+@app.errorhandler(500)
+def error_handler(error):
+	return render_template('error.html')
 
 @app.route('/test')
 def test():
     return render_template('test.html')
+
 
 
 def run():
