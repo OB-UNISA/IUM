@@ -28,7 +28,8 @@ def run():
           host='0.0.0.0',
           port=8080,
           url_scheme='https',
-          ident=None)
+          ident=None,
+          threads=6)
 
 
 if __name__ == '__main__':
