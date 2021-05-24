@@ -6,7 +6,7 @@ authors = ["repl.it user <replituser@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-flask = "^2.0.0"
+flask = "^2.0.1"
 waitress = "^2.0.0"
 cutandpaste = "^0.4.0"
 Paste = "^3.5.0"
