@@ -2,8 +2,7 @@ from flask import Flask, render_template
 from waitress import serve
 from paste.translogger import TransLogger
 
-app = Flask('')
-
+app = Flask('', static_folder='assets')
 
 @app.route('/')
 def home():
