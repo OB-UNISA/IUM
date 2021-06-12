@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	 crossorigin="anonymous">
+	<link href="/assets/css/customLogin.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+	<script src="/assets/js/customScripts.js">
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand ps-5" href="/"><img width="70%"
+          src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png">
+        </a>
+      </div>
+    </nav>
+    <main class="form-signin">
+        <form data-bitwarden-watching="1" onsubmit="event.preventDefault(); return signUp()">
+            <img class="mb-4 mx-auto d-block" src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png" alt=""
+                width="70%">
+            <h1 class="text-center h3 mb-3 fw-normal">Registrati</h1>
+
+            <div class="mb-3">
+              <label for="nomeUtente" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nomeUtente" placeholder="Paolo" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="cognomeUtente" class="form-label">Cogome</label>
+              <input type="text" class="form-control" id="cognomeUtente" placeholder="Rossi" required>
+            </div>
+
+            <div id="myCFAlert" class="alert alert-danger" style="display:none">
+              Codice fiscale non valido!
+            </div>
+            <div class="mb-3">
+              <label for="cfUtente" class="form-label">Codice Fiscale</label>
+              <input type="text" class="form-control" id="cfUtente" placeholder="RSSPLA99R06F839X" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="emailUtente" class="form-label">Email</label>
+              <input type="email" class="form-control" id="emailUtente" placeholder="paolo@esempio.it" required>
+            </div>
+
+            <div id="myPasswordAlert" class="alert alert-danger" style="display:none">
+              Le password non coincidono!
+            </div>
+            <div class="mb-3">
+              <label for="passwordUtente" class="form-label">Password</label>
+              <input type="password" class="form-control" id="passwordUtente" placeholder="*****" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="confermaPasswordUtente" class="form-label">Conferma password</label>
+              <input type="password" class="form-control" id="confermaPasswordUtente" placeholder="*****" required>
+            </div>
+
+            <select id="ruoloUtente" class="form-select" aria-label="ruolo" required>
+              <option selected disabled>Seleziona il tuo ruolo</option>
+              <option value="forze">Forze dell'Ordine</option>
+              <option value="centro">Volontario</option>
+            </select>
+
+            <button class="mt-3 w-100 btn btn-lg btn-primary" type="submit">Registrati</button>
+        </form>
+    </main>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
+        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat</p>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,81 +1,96 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-      <script src="/assets/js/customScripts.js"></script>
-      <script>
-        window.onload = customOnload
-      </script>
-   </head>
-   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-         <div class="container-fluid">
-            <a class="navbar-brand ps-5" href="/"><img width="70%"
-               src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png"></a>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	 crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+	<script src="/assets/js/customScripts.js">
+
+	</script>
+	<script>
+		window.onload = customOnload
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand ps-5" href="/"><img width="70%"
+                    src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png"></a>
             <div class="pe-5">
-               <button id="loginButton" class="btn btn-outline-success" type="button"
-                  onclick="window.location.replace('/login')">Login</button>
+                <button id="loginButton" class="btn btn-outline-success" type="button"
+                    onclick="window.location.replace('/login')">Login</button>
             </div>
-         </div>
-      </nav>
-      <div class="container mt-4">
-         <div class="row">
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
             <video class="video col-12" autoplay loop muted>
-               <source src="/assets/media/pexels-taryn-elliott-7519317.mp4" type="video/mp4">
+                <source src="/assets/media/pexels-taryn-elliott-7519317.mp4" type="video/mp4">
             </video>
             <button type="button" class="btn btn-lg btn-danger mt-4"
-               onclick="window.location.replace('/segnalazioni')">Effettua una segnalazione</button>
-         </div>
-         <div class="card-header border rounded-2 mt-4">
-              <h3 class="fw-bold text-center mb-0">Domande</h3>
-         </div>
-         <div class="card-group mb-4">
-            <div class="card">
-               <div class="card-body">
-                  <h5 class="card-title">Domanda 1</h5>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-body">
-                  <h5 class="card-title">Domanda 2</h5>
-                  <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-body">
-                  <h5 class="card-title">Domanda 3</h5>
-                  <p class="card-text"><a href="/endpoints">Endpoints</a> is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-               </div>
-            </div>
-         </div>
-      </div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
-         <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-      </nav>
-      <!-- PopUp -->
-      <div class="modal" id="myPopUp" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Attenzione</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Sei sicuro di voler effettuare il logout?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-              <button type="button" class="btn btn-primary" onclick="customLogout()">Si, effettua il logout</button>
-            </div>
-          </div>
+                onclick="window.location.replace('/segnalazioni')">Effettua una segnalazione</button>
         </div>
-      </div>
-      <!---->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-   </body>
+        <div class="card-header border rounded-2 mt-4">
+            <h3 class="fw-bold text-center mb-0">Domande</h3>
+        </div>
+        <div class="card-group mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Domanda 1</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Domanda 2</h5>
+                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Domanda 3</h5>
+                    <p class="card-text"><a href="/endpoints">Endpoints</a> is a wider card with supporting text below
+                        as a natural lead-in to additional content. This card has even longer content than the first to
+                        show that equal height action.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
+        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat</p>
+    </nav>
+    <!-- PopUp -->
+    <div class="modal" id="myPopUp" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attenzione</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler effettuare il logout?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" onclick="customLogout()">Si, effettua il
+                        logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>

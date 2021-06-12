@@ -5,13 +5,14 @@ from replit import db
 
 app = Flask('', static_folder='assets')
 
-
+''''
 @app.errorhandler(404)
 @app.errorhandler(403)
 @app.errorhandler(410)
 @app.errorhandler(500)
 def error_handler(error):
     return render_template('error.html')
+'''
 
 
 @app.route('/')
@@ -28,6 +29,7 @@ def db_get():
 @app.post('/db/set')
 def db_set():
     req = request.json
+    print(req)
     user = {
         'nome': req['nome'],
         'email': req['email'],
@@ -49,6 +51,16 @@ def login():
 @app.route('/registrazione')
 def registrazione():
     return render_template('registrazione.html')
+
+
+@app.route('/centro')
+def centro():
+    return render_template('centro.html')
+
+
+@app.route('/forze')
+def forzeordine():
+    return render_template('forze.html')
 
 
 @app.route('/segnalazioni')
