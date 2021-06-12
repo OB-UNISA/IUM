@@ -1,24 +1,64 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 from waitress import serve
 from paste.translogger import TransLogger
+from replit import db
 
 app = Flask('', static_folder='assets')
 
-@app.route('/')
-def home():
-    return render_template('index.html')
 
 @app.errorhandler(404)
 @app.errorhandler(403)
 @app.errorhandler(410)
 @app.errorhandler(500)
 def error_handler(error):
-	return render_template('error.html')
+    return render_template('error.html')
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
 
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.post('/db/get')
+def db_get():
+    users = db['users']
+    return jsonify([dict(user) for user in users])
+
+
+@app.post('/db/set')
+def db_set():
+    req = request.json
+    user = {
+        'nome': req['nome'],
+        'email': req['email'],
+        'password': req['password'],
+        'ruolo': req['ruolo']
+    }
+    users = db['users']
+    users.append(user)
+
+    db['users'] = users
+    return "ok"
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/registrazione')
+def registrazione():
+    return render_template('registrazione.html')
+
+
+@app.route('/segnalazioni')
+def segnalazioni():
+    return render_template('segnalazioni.html')
+
+
+@app.route('/endpoints')
+def endpoints():
+    return render_template('endpoints.html')
 
 
 def run():
