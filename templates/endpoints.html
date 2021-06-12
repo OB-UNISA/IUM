@@ -1,1 +1,277 @@
-endpoints
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+
+    </script>
+    <script src="/assets/js/customScripts.js">
+
+    </script>
+    <script src="/assets/js/endpoints.js">
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            customOnload()
+            changeEndpoint(1)
+        }
+        )
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand ps-5" href="/"><img width="70%"
+                    src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png"></a>
+        </div>
+    </nav>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-3">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                    <a class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">⚷</span>
+                            </div>
+                            <input type="text" id="api_key" class="form-control" placeholder="Api key" aria-label="Api key"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="list-group list-group-flush border-bottom scrollarea">
+                            <a onclick="changeEndpoint(1)" id="endpoint1"
+                                class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Api-key</strong>
+                                    <small>1.3</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Ottenere la Api Key per l'accesso ai dati.</div>
+                            </a>
+                            <a onclick="changeEndpoint(2)" id="endpoint2"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Ultime segnalazioni</strong>
+                                    <small class="text-muted">1.1</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Invia le segnalazioni delle ultime 2 ore.</div>
+                            </a>
+                            <a onclick="changeEndpoint(3)" id="endpoint3"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Ricerca segnalazioni</strong>
+                                    <small class="text-muted">1.0</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Ricerca le segnalazioni da una determinata data fino ad
+                                    un'altra determinata data.</div>
+                            </a>
+                            <a onclick="changeEndpoint(4)" id="endpoint4"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Lorem ipsum</strong>
+                                    <small class="text-muted">0.1</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod
+                                    tempor incididunt.</div>
+                            </a>
+                            <a onclick="changeEndpoint(5)" id="endpoint5"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Lorem ipsum</strong>
+                                    <small class="text-muted">Alpha 1.8</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod
+                                    tempor incididunt.</div>
+                            </a>
+                            <a onclick="changeEndpoint(6)" id="endpoint6"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Lorem ipsum</strong>
+                                    <small class="text-muted">Beta 0.5</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod
+                                    tempor incididunt.</div>
+                            </a>
+                            <a onclick="changeEndpoint(7)" id="endpoint7"
+                                class="list-group-item list-group-item-action py-3 lh-tight">
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                    <strong class="mb-1">Lorem ipsum</strong>
+                                    <small class="text-muted">2.5</small>
+                                </div>
+                                <div class="col-10 mb-1 small">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod
+                                    tempor incididunt.</div>
+                            </a>
+                        </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div id="doc1">
+                    <div class="card col-12 mb-2">
+                        <h5 class="card-header text-center">Descrizione</h5>
+                        <div class="card-body">
+                            <p class="card-text">Questo non è un endpoint, ma serve per ottenere una api-key per poter
+                                essere autorizzati ad usare gli endpoints.</p>
+                        </div>
+                    </div>
+                    <div class="card col-12 mb-2">
+                        <h5 class="card-header text-center">Domande</h5>
+                        <div class="card-body">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            Ho bisogno di un account per avere una api-key?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <strong>No</strong>, chiunque può richiederne una.
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            Quando scade la mia Api key?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            La chiave scade dopo <strong> un anno</strong>.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            Ci sono dei limiti?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Ogni endpoint ha un <strong>rate limit</strong> di richieste al minuto. A
+                                            ogni richiesta a un endpoint verra inviato un header nella risposta
+                                            denominato <strong>X-RateLimit-Endpoint</strong>, il valore indicherà il
+                                            numero di richieste disponibili per quel determinato endpoint prima del
+                                            reset.
+                                            Vi è anche un <strong>rate limit globale</strong> denominato di richieste al
+                                            minuto presente nella risposta denominato
+                                            <strong>X-RateLimit-Global</strong>.
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-12 mb-2">
+                        <h5 class="card-header text-center">Ottieni Api key</h5>
+                        <div class="card-body">
+                            <p class="card-text">Premi il seguente pulsante per ottenere una Api key.</p>
+                        </div>
+                        <button type="button" class="btn btn-primary mb-2" onclick="doc1_apikey()">Ottieni</button>
+                        <div class="input-group-prepend d-none" id="doc1_apikey">
+                            <span class="input-group-text"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc2">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc3">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc4">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc5">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc6">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="doc7">
+                    <div class="card col-12">
+                        <h5 class="card-header">Featured</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional
+                                content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer bg-light mt-4 p-5">
+        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut
+            aliquip ex ea commodo consequat</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

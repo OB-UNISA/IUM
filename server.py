@@ -3,8 +3,9 @@ from waitress import serve
 from paste.translogger import TransLogger
 from replit import db
 
-app = Flask('', static_folder='assets')
+import secrets
 
+app = Flask('', static_folder='assets')
 ''''
 @app.errorhandler(404)
 @app.errorhandler(403)
@@ -20,10 +21,20 @@ def home():
     return render_template('index.html')
 
 
-@app.post('/db/get')
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.get('/db/get')
 def db_get():
     users = db['users']
     return jsonify([dict(user) for user in users])
+
+
+@app.route('/registrazione')
+def registrazione():
+    return render_template('registrazione.html')
 
 
 @app.post('/db/set')
@@ -41,16 +52,6 @@ def db_set():
 
     db['users'] = users
     return "ok"
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-
-@app.route('/registrazione')
-def registrazione():
-    return render_template('registrazione.html')
 
 
 @app.route('/centro')
@@ -71,6 +72,11 @@ def segnalazioni():
 @app.route('/endpoints')
 def endpoints():
     return render_template('endpoints.html')
+
+
+@app.get('/api/get')
+def api_key():
+    return secrets.token_hex(16)
 
 
 def run():
