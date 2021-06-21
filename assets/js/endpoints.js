@@ -47,31 +47,40 @@ function doc4_output () {
   doc1_apikey.classList.remove('d-none')
   doc1_apikey.classList.add('d-block')
 
-  data = {
-    api_key: document.getElementById('api_key').value,
-    date_begin: date1.value,
-    date_end: date2.value,
-    count: 3,
-    reports: [
-      {
-        id: '23974bnf2834fnw8',
-        place: 'IT/SA',
-        animal: 'serpente',
-        datetime: '2021-06-25T16:06:432'
-      },
-      {
-        id: 'erfwerffnw8er',
-        place: 'IT/NA',
-        animal: 'mucca',
-        datetime: '2021-06-26T18:07:427'
-      },
-      {
-        id: 'ewrt4tgdf43redrf',
-        place: 'IT/SA',
-        animal: 'sconosciuto',
-        datetime: '2021-06-25T06:25:007'
-      }
-    ]
+  let data = {}
+  let _api_key = document.getElementById('api_key').value
+  if (_api_key.length < 5){
+    data = {
+        status: 401
+    }
+  } else{
+    data = {
+        api_key: _api_key,
+        status: 200,
+        date_begin: date1.value,
+        date_end: date2.value,
+        count: 3,
+        reports: [
+        {
+            id: '23974bnf2834fnw8',
+            place: 'IT/SA',
+            animal: 'serpente',
+            datetime: '2021-06-25T16:06:432'
+        },
+        {
+            id: 'erfwerffnw8er',
+            place: 'IT/NA',
+            animal: 'mucca',
+            datetime: '2021-06-26T18:07:427'
+        },
+        {
+            id: 'ewrt4tgdf43redrf',
+            place: 'IT/SA',
+            animal: 'sconosciuto',
+            datetime: '2021-06-25T06:25:007'
+        }
+        ]
+    }
   }
 
   document.getElementById('doc4_value').innerHTML = JSON.stringify(data, undefined, 2)
