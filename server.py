@@ -78,6 +78,60 @@ def endpoints():
 def api_key():
     return secrets.token_hex(16)
 
+@app.get('/animali/get')
+def animali_get():
+    animali = db['animali']
+    return jsonify([dict(animale) for animale in animali])
+
+@app.get('/animali/getAnimaleDetails')
+def animali_getAnimaleDetails():
+    id = int(request.args.get('id'))
+    animali = db['animali']
+    for animale in animali.value:
+      myAnimale = animale.value
+      if int(myAnimale['id']) == id:
+        return jsonify(dict(animale))
+    return "ok"
+
+
+@app.get('/animali/getNumber')
+def animali_getNumber():
+    animali = db['animali']
+    return str(len(animali))
+
+@app.get('/animali/deleteAnimal')
+def animali_deleteAnimal():
+    id = int(request.args.get('id'))
+    animali = db['animali']
+    for animale in animali.value:
+      myAnimale = animale.value
+      if int(myAnimale['id']) == id:
+        animali.remove(animale)
+        break
+    db['animali'] = animali
+    return render_template('centro.html')
+
+@app.post('/animali/setAnimal')
+def animali_set():
+    req = request.json
+    print("Req: ", req)
+    animale = {
+        'id': str(len(db['animali']) + 1),
+        'specie': req['specie'],
+        'eta': req['eta'],
+        'dataRitrovamento': req['dataRitrovamento'],
+        'luogoRitrovamento': req['luogoRitrovamento'],
+        'autoctono': req['autoctono'],
+        'recuperabile': req['recuperabile'],
+        'caratteristicheFisiche': req['caratteristicheFisiche'],
+        'malattie': req['malattie'],
+        'ferite': req['ferite']
+    }
+    animali = db['animali']
+    animali.append(animale)
+    db['animali'] = animali
+    return "ok"
+
 
 def run():
     format_logger = '[%(time)s] %(status)s %(REQUEST_METHOD)s %(REQUEST_URI)s'
