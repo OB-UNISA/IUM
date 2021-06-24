@@ -8,14 +8,6 @@ import secrets
 app = Flask('', static_folder='assets')
 
 
-@app.errorhandler(404)
-@app.errorhandler(403)
-@app.errorhandler(410)
-@app.errorhandler(500)
-def error_handler(error):
-    return render_template('error.html')
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -40,7 +32,6 @@ def registrazione():
 @app.post('/db/set')
 def db_set():
     req = request.json
-    print(req)
     user = {
         'nome': req['nome'],
         'email': req['email'],
@@ -69,6 +60,36 @@ def segnalazioni():
     return render_template('segnalazioni.html')
 
 
+@app.post('/segnalazioni/save')
+def save_segnalazione():
+    req = request.json
+    print(req)
+    segnalazione = {
+        'specie': req['specie'],
+        'dataRitrovamento': req['dataRitrovamento'],
+        'luogoRitrovamento': req['luogoRitrovamento'],
+        'numeroEsemplari': req['numeroEsemplari'],
+        'stato': 'aperta',
+    }
+    segnalazioni = db['forze']
+    segnalazione['id'] = str(int(segnalazioni[-1]['id']) + 1)
+    segnalazioni.append(segnalazione)
+    db['forze'] = segnalazioni
+
+    return jsonify({'id': int(segnalazione['id'])})
+
+
+@app.post('/segnalazioni/get')
+def get_segnalazione():
+    segnalazioni = db['forze']
+    codice = request.json['id']
+    for segnalazione in segnalazioni:
+        if segnalazione['id'] == codice:
+            return segnalazione['stato']
+
+    return 'Codice non valido'
+
+
 @app.route('/endpoints')
 def endpoints():
     return render_template('endpoints.html')
@@ -78,19 +99,52 @@ def endpoints():
 def api_key():
     return secrets.token_hex(16)
 
+
+@app.get('/forze/get')
+def forze_get():
+    segnalazioni = db['forze']
+    return jsonify([dict(segnalazione) for segnalazione in segnalazioni])
+
+
+@app.get('/forze/getSegnalazioneDetails')
+def forze_getSegnalazioneDetails():
+    id = int(request.args.get('id'))
+    segnalazioni = db['forze']
+    for segnalazione in segnalazioni.value:
+        mySegnalazione = segnalazione.value
+        if int(mySegnalazione['id']) == id:
+            return jsonify(dict(segnalazione))
+    return "ok"
+
+
+@app.get('/forze/changeSegnalazioneStatus')
+def forze_changeSegnalazioneStatus():
+    id = int(request.args.get('id'))
+    stato = request.args.get('stato')
+    segnalazioni = db['forze']
+    for segnalazione in segnalazioni.value:
+        mySegnalazione = segnalazione.value
+        if int(mySegnalazione['id']) == id:
+            mySegnalazione['stato'] = stato
+            break
+    db['forze'] = segnalazioni
+    return render_template('forze.html')
+
+
 @app.get('/animali/get')
 def animali_get():
     animali = db['animali']
     return jsonify([dict(animale) for animale in animali])
+
 
 @app.get('/animali/getAnimaleDetails')
 def animali_getAnimaleDetails():
     id = int(request.args.get('id'))
     animali = db['animali']
     for animale in animali.value:
-      myAnimale = animale.value
-      if int(myAnimale['id']) == id:
-        return jsonify(dict(animale))
+        myAnimale = animale.value
+        if int(myAnimale['id']) == id:
+            return jsonify(dict(animale))
     return "ok"
 
 
@@ -99,17 +153,19 @@ def animali_getNumber():
     animali = db['animali']
     return str(len(animali))
 
+
 @app.get('/animali/deleteAnimal')
 def animali_deleteAnimal():
     id = int(request.args.get('id'))
     animali = db['animali']
     for animale in animali.value:
-      myAnimale = animale.value
-      if int(myAnimale['id']) == id:
-        animali.remove(animale)
-        break
+        myAnimale = animale.value
+        if int(myAnimale['id']) == id:
+            animali.remove(animale)
+            break
     db['animali'] = animali
     return render_template('centro.html')
+
 
 @app.post('/animali/setAnimal')
 def animali_set():

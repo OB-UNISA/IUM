@@ -1,4 +1,12 @@
 function customOnLoadCentro(){
+  
+  //Event listener searchBar
+  const searchButton = document.getElementById('searchButton');
+  const searchInput = document.getElementById('searchInput');
+  searchButton.addEventListener('click', () => {
+    const inputValue = searchInput.value;
+    fillList(inputValue);
+  });
 
   //Event listener per bottone inserimento animali
   const dashboard = document.getElementById('dashboard');
@@ -14,29 +22,11 @@ function customOnLoadCentro(){
     inserisciAnimaleForm.style.display = "block";
   });
 
-  // Chiamo DB per ottenere tutti gli animali
-    $.ajax({
-    url: './animali/get',
-    type: 'GET',
-    timeout: 5000,
-    success: function (animali) {
-
-      //lista sidebar alla quale appendere tutti gli animali
-      const myList = document.getElementById('listaSidebar');
-
-      //append di tutti gli animali ritornati dal database
-      animali.forEach((animale, i)=>{
-        let myDiv = document.createElement('div');
-        myDiv.innerHTML = "<a onclick='onListElementClick(" + animale.id + ")' id='" + animale.id + "' class='list-group-item list-group-item-action py-3 lh-tight' aria-current='true'><div class='d-flex w-100 align-items-center justify-content-between'><strong id='titoloAnimale' class='mb-1'>" + animale.specie + "</strong><small id='dataPreview'>" + animale.dataRitrovamento + "</small></div><div id='luogoPreview' class='col-10 mb-1 small'>" + animale.luogoRitrovamento + "</div></a>";
-        myList.appendChild(myDiv);
-      })
-    },
-    error: function (xhr, status, error) {
-    }
-  })
+  fillList("");
 
 }
 
+// per visualizzare dettagli
 function onListElementClick(idAnimale){
 
   //rendo non active tutti gli elementi della lista
@@ -49,13 +39,14 @@ function onListElementClick(idAnimale){
   const inserisciAnimaleForm = document.getElementById('formInserimento');
   inserisciAnimaleForm.style.display = "none";
 
-  //rendo active l'elemento che ho cliccato
-  const aElement = document.getElementById(idAnimale);
-  aElement.classList.add('active');
-
   //rendo visibile la dashboard
   const dashboard = document.getElementById('dashboard');
   dashboard.style.display = "block";
+  dashboard.style.visibility = "visible";
+
+  //rendo active l'elemento che ho cliccato
+  const aElement = document.getElementById(idAnimale);
+  aElement.classList.add('active');
 
   //elementi da riempire
   const id = document.getElementById('idAnimale');
@@ -99,7 +90,7 @@ function insertAnimale(){
   
   const specie = document.getElementById('specieInput').value;
   const eta = document.getElementById('etaInput').value;
-  const data = document.getElementById('dataInput').value;
+  const data = moment(document.getElementById('dataInput').value, 'YYYY-MM-DD').format('DD/MM/YYYY');
   const luogo = document.getElementById('luogoInput').value;
   const autoctono = document.getElementById('autoctonoInput').value;
   const recuperabile = document.getElementById('recuperabileInput').value;
@@ -144,6 +135,36 @@ function deleteAnimale(){
     timeout: 5000,
     success: function (users) {
       window.location.replace('/centro');
+    }
+  })
+
+}
+
+function createListEntry(myList, animale){
+  let myDiv = document.createElement('div');
+  myDiv.innerHTML = "<a onclick='onListElementClick(" + animale.id + ")' id='" + animale.id + "' class='list-group-item list-group-item-action py-3 lh-tight' aria-current='true'><div class='d-flex w-100 align-items-center justify-content-between'><strong id='titoloAnimale' class='mb-1'>" + animale.specie + "</strong><small id='dataPreview'>" + animale.dataRitrovamento + "</small></div><div id='luogoPreview' class='col-10 mb-1 small'>" + animale.luogoRitrovamento + "</div></a>";
+  myList.appendChild(myDiv);
+}
+
+function fillList(searchInput){
+    
+    // Chiamo DB per ottenere tutti gli animali
+    $.ajax({
+    url: './animali/get',
+    type: 'GET',
+    timeout: 5000,
+    success: function (animali) {
+
+      //lista sidebar alla quale appendere tutti gli animali
+      const myList = document.getElementById('listaSidebar');
+      myList.innerHTML = "";
+
+      //append di tutti gli animali ritornati dal database
+      animali.forEach((animale, i)=>{
+        if(searchInput=="" || animale.luogoRitrovamento == searchInput){
+          createListEntry(myList, animale);
+        }
+      })
     }
   })
 
