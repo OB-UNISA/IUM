@@ -49,7 +49,8 @@
  <!-- Form a destra per effettuare Segnalazione !-->
 
   <div class="container-right">
-    <h3> Effettua una nuova segnalazione! </h3>
+      <div class="card-header bg-transparent border-success"> Effettua una nuova segnalazione! </div>
+
   <div class="form-group">
     <label>Nome di chi effettua la segnalazione</label>
     <input type="text" class="form-control" placeholder="Mario" id="nome">
@@ -76,9 +77,18 @@
         <input type="number" class="form-control" placeholder="2" id="numeroEsemplari">
   </div>
   </div><br>
-  <button type="button" class="btn btn-primary" onclick="save_segnalazione()">Invia Segnalazione</button>
+  <button type="button" class="btn btn-primary" onclick="save_segnalazione()" onclick="showDiv()">Invia Segnalazione</button>
+<br>
+<div id="code"  style="display:none;" class="container-left" > Codice per seguire la segnalazione è 0001</div>
+
 </div>
-</div>
+
+
+<script>
+function showDiv() {
+   document.getElementById('code').style.display = "block";
+}
+</script>
 
 </body>
 </html>
