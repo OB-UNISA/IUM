@@ -4,10 +4,10 @@ function customOnload () {
     const loginButton = document.getElementById('loginButton')
     loginButton.innerHTML = username
     loginButton.onclick = undefined
-    loginButton.classList.add('dropdown-toggle');
-    const unorderedList = document.getElementById('unorderedList');
-    unorderedList.classList.remove('d-none');
-    const listItem = document.getElementById('myDashboardLink');
+    loginButton.classList.add('dropdown-toggle')
+    const unorderedList = document.getElementById('unorderedList')
+    unorderedList.classList.remove('d-none')
+    const listItem = document.getElementById('myDashboardLink')
     listItem.setAttribute('href', '/' + localStorage.getItem('ruolo'))
   }
 }
