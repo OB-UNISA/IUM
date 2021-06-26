@@ -58,6 +58,8 @@ function onListElementClick(idSegnalazione){
   const data = document.getElementById('data');
   const luogo = document.getElementById('luogo');
   const esemplari = document.getElementById('numeroEsemplari');
+  const nomeImmagine = document.getElementById('nomeImmagine');
+  const nomeImmagineModal = document.getElementById('immagineAnimaleModal');
 
   //recupero dal database dettagli segnalazione
   $.ajax({
@@ -75,6 +77,56 @@ function onListElementClick(idSegnalazione){
       luogo.value = segnalazione.luogoRitrovamento
       esemplari.value = segnalazione.numeroEsemplari
 
+      // per scegliere foto giusta
+      let nomeImmagineString;
+      switch(segnalazione.specie.toLowerCase()){
+        case 'lupo':
+          nomeImmagineString = "/assets/media/lupo.jpg";
+          break;
+        case 'cane':
+          nomeImmagineString = "/assets/media/cane.jpg";
+          break;
+        case 'gatto':
+          nomeImmagineString = '/assets/media/gatto.jpg';
+          break;
+        case 'cinghiale':
+          nomeImmagineString = '/assets/media/cinghiale.jpg';
+          break;
+        default:
+          nomeImmagineString = '/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png';
+          break;          
+      }
+      nomeImmagine.removeAttribute('src');
+      nomeImmagine.setAttribute('src', nomeImmagineString);
+
+      nomeImmagineModal.removeAttribute('src');
+      nomeImmagineModal.setAttribute('src', nomeImmagineString);
+
+      // setto mappa
+      mapboxgl.accessToken = 'pk.eyJ1IjoieWFudCIsImEiOiJja3FjeWZ1bzcwMmZqMnFwZ3I1b2d0dzFmIn0.PlX5QglV9zgy3oI8ILOtaw';
+      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+      mapboxClient.geocoding.forwardGeocode({
+        query: segnalazione.luogoRitrovamento,
+        autocomplete: false,
+        limit: 1
+      })
+      .send()
+      .then(function (response) {
+        if (response && response.body && response.body.features && response.body.features.length) {
+          var feature = response.body.features[0];
+          var map = new mapboxgl.Map({
+            container: 'mappaDiv',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: feature.center,
+            zoom: 15
+          });
+          map.addControl(new mapboxgl.FullscreenControl());
+          map.addControl(new mapboxgl.NavigationControl());
+          // creo marker
+          new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+        }
+      }); // fine mappa
+
     },
   })
 
@@ -90,16 +142,21 @@ function buttonListenerFunction(stato){
   const bottoniRisolvibile = document.getElementById('divPulsanti');
   bottoniRisolvibile.style.display = "none";
 
-  let bottoneChiudi = document.createElement('button');
-  bottoneChiudi.id = 'confermaButton';
-  bottoneChiudi.className = 'btn btn-primary btn-md center-block';
-  bottoneChiudi.style = 'width: 100; margin-top: 15px';
-  bottoneChiudi.innerHTML = "Chiudi segnalazione";
-  bottoneChiudi.addEventListener('click', function(){
+  //let bottoneChiudi = document.createElement('button');
+  //bottoneChiudi.id = 'confermaButton';
+  //bottoneChiudi.className = 'btn btn-primary btn-md center-block';
+  //bottoneChiudi.style = 'width: 100; margin-top: 15px';
+  //bottoneChiudi.innerHTML = "Chiudi segnalazione";
+  const bottoneChiudi = document.getElementById('confermaButton');
+  const bottoneChiudiClone = bottoneChiudi.cloneNode(true);
+  // per rimuovere gli event listeners precedenti
+  bottoneChiudi.parentNode.replaceChild(bottoneChiudiClone, bottoneChiudi);  
+  // aggiungo nuovo el
+  bottoneChiudiClone.addEventListener('click', function(){
     chiudiSegnalazione(stato);
   });
 
-  inputDettagli.appendChild(bottoneChiudi);
+  // inputDettagli.appendChild(bottoneChiudi);
 }
 
 function chiudiSegnalazione(stato){

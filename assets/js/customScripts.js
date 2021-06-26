@@ -4,8 +4,11 @@ function customOnload () {
     const loginButton = document.getElementById('loginButton')
     loginButton.innerHTML = username
     loginButton.onclick = undefined
-    loginButton.setAttribute('data-bs-toggle', 'modal')
-    loginButton.setAttribute('data-bs-target', '#myPopUp')
+    loginButton.classList.add('dropdown-toggle');
+    const unorderedList = document.getElementById('unorderedList');
+    unorderedList.classList.remove('d-none');
+    const listItem = document.getElementById('myDashboardLink');
+    listItem.setAttribute('href', '/' + localStorage.getItem('ruolo'))
   }
 }
 
@@ -28,6 +31,7 @@ function checkLogin () {
       users.forEach((user) => {
         if (user.email == email && user.password == password) {
           localStorage.setItem('username', user.nome)
+          localStorage.setItem('ruolo', user.ruolo)
           window.location.replace('/' + user.ruolo)
           exist = true
         }

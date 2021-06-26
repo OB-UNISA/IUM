@@ -6,9 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
 	 crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 	<script src="/assets/js/customScripts.js">
     </script>
     <script src="/assets/js/segnalazioni.js">
@@ -19,7 +18,9 @@
 	<link rel="stylesheet" href="/assets/css/segnalazioni.css">
 </head>
 
+
 <body>
+
 	<!-- NavBar !-->
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,6 +29,7 @@
                     src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png"></a> </div></nav>
 
 
+<div class="container-forms">
 <!-- Form di sinistra per vedere segnalazione !-->
 <div class="container-left">
   <h3> Controlla la tua segnalazione!</h3>
@@ -62,7 +64,7 @@
   </div>
    <div class="form-group">
     <label>Luogo dell'avvistamento</label>
-    <input type="text" class="form-control" placeholder="indirizzo" id="luogoRitrovamento">
+    <input type="text" class="form-control" placeholder="Indirizzo" id="coordinate"> 
   </div>
    <div class="form-group">
     <label>Data Avvistamento</label>
@@ -75,16 +77,7 @@
   </div>
   </div><br>
   <button type="button" class="btn btn-primary" onclick="save_segnalazione()">Invia Segnalazione</button>
-
-<!-- pseudocodice 
-      if(form is send) prendi il codice generato e stampalo qua sotto a schermo !-->
-
-      if (segnalazione.js. )
-
-
-
-
-
+</div>
 </div>
 
 </body>

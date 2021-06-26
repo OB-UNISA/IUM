@@ -7,6 +7,10 @@ function customOnLoadCentro(){
     const inputValue = searchInput.value;
     fillList(inputValue);
   });
+  searchInput.addEventListener('input', () => {
+    const inputValue = searchInput.value;
+    fillList(inputValue);
+  });
 
   //Event listener per bottone inserimento animali
   const dashboard = document.getElementById('dashboard');
@@ -59,6 +63,8 @@ function onListElementClick(idAnimale){
   const carFisiche = document.getElementById('carFisiche');
   const malattie = document.getElementById('malattie');
   const ferite = document.getElementById('ferite');
+  const nomeImmagine = document.getElementById('immagineAnimale');
+  const nomeImmagineModal = document.getElementById('immagineAnimaleModal');
 
   //recupero dal database dettagli animale
   $.ajax({
@@ -81,8 +87,58 @@ function onListElementClick(idAnimale){
       malattie.value = animale.malattie
       ferite.value = animale.ferite
 
-    },
-  })
+      // per scegliere foto giusta
+      let nomeImmagineString;
+      switch(animale.specie.toLowerCase()){
+        case 'lupo':
+          nomeImmagineString = "/assets/media/lupo.jpg";
+          break;
+        case 'cane':
+          nomeImmagineString = "/assets/media/cane.jpg";
+          break;
+        case 'gatto':
+          nomeImmagineString = '/assets/media/gatto.jpg';
+          break;
+        case 'cinghiale':
+          nomeImmagineString = '/assets/media/cinghiale.jpg';
+          break;
+        default:
+          nomeImmagineString = '/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png';
+          break;          
+      }
+      nomeImmagine.removeAttribute('src');
+      nomeImmagine.setAttribute('src', nomeImmagineString);
+
+      nomeImmagineModal.removeAttribute('src');
+      nomeImmagineModal.setAttribute('src', nomeImmagineString);
+
+      // setto mappa
+      mapboxgl.accessToken = 'pk.eyJ1IjoieWFudCIsImEiOiJja3FjeWZ1bzcwMmZqMnFwZ3I1b2d0dzFmIn0.PlX5QglV9zgy3oI8ILOtaw';
+      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+      mapboxClient.geocoding.forwardGeocode({
+        query: animale.luogoRitrovamento,
+        autocomplete: false,
+        limit: 1
+      })
+      .send()
+      .then(function (response) {
+        if (response && response.body && response.body.features && response.body.features.length) {
+          var feature = response.body.features[0];
+          var map = new mapboxgl.Map({
+            container: 'mappaDiv',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: feature.center,
+            zoom: 15
+          });
+          map.addControl(new mapboxgl.FullscreenControl());
+          map.addControl(new mapboxgl.NavigationControl());
+          // creo marker
+          new mapboxgl.Marker().setLngLat(feature.center).addTo(map);
+        }
+      }); // fine mappa
+
+    } // fine success
+  }) // fine chiamata AJAX
 
 }
 
@@ -99,6 +155,7 @@ function insertAnimale(){
   const ferite = document.getElementById('feriteInput').value;
 
   const myAnimal = {
+    //nomeImmagine: nomeImmagine,
     specie: specie,
     eta: eta,
     dataRitrovamento: data,
@@ -161,7 +218,7 @@ function fillList(searchInput){
 
       //append di tutti gli animali ritornati dal database
       animali.forEach((animale, i)=>{
-        if(searchInput=="" || animale.luogoRitrovamento == searchInput){
+        if(searchInput=="" || animale.luogoRitrovamento.toLowerCase().includes(searchInput.toLowerCase()) || animale.specie.toLowerCase() == searchInput.toLowerCase()){
           createListEntry(myList, animale);
         }
       })

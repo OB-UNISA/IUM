@@ -21,8 +21,8 @@ function save_segnalazione(){
     let segnalazione = {
         'specie': document.getElementById('specie').value,
         'dataRitrovamento': document.getElementById('dataRitrovamento').value,
-        'luogoRitrovamento': document.getElementById('luogoRitrovamento').value,
-        'numeroEsemplari': document.getElementById('numeroEsemplari').value
+        'numeroEsemplari': document.getElementById('numeroEsemplari').value,
+        'coordinate': document.getElementById('coordinate').value,
     }
 
     $.ajax({

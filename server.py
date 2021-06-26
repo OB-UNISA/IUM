@@ -7,6 +7,12 @@ import secrets
 
 app = Flask('', static_folder='assets')
 
+@app.errorhandler(404)
+@app.errorhandler(403)
+@app.errorhandler(410)
+@app.errorhandler(500)
+def error_handler(error):
+    return render_template('error.html')
 
 @app.route('/')
 def home():

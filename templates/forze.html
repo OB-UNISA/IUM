@@ -6,8 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
 	 crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="/assets/js/forze.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+	</script>
+	<script src="/assets/js/forze.js">
+	</script>
 </head>
 
 <body>
@@ -16,8 +18,15 @@
 			<a class="navbar-brand ps-5" href="/"><img width="70%"
                     src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png"></a>
             <div class="pe-5">
-                <button id="loginButton" class="btn btn-outline-success" type="button"
-                    onclick="window.location.replace('/login')">Login</button>
+              <div class="dropdown" id="dropdownButtonDiv">
+                <button class="btn btn-outline-success" type="button" id="loginButton" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.replace('/login')">
+                  Login
+                </button>
+                <ul id="unorderedList" class="dropdown-menu d-none" aria-labelledby="loginButton">
+                  <li><a class="dropdown-item" href="#" id="myDashboardLink">Dashboard</a></li>
+                  <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#myPopUp" href="#">Logout</a></li>
+                </ul>
+              </div>
             </div>
         </div>
     </nav>
@@ -26,10 +35,10 @@
     <div class="d-flex flex-row justify-content-around mt-4">
       <!-- INIZIO SIDEBAR vh-100 -->
       <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white sticky-top" style="width: 380px; height: 85vh">
-        <a class="text-center d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+        <a class="text-center d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none" style="padding-left: 0.25rem!important">
           <span class="text-center fs-5 fw-semibold">Segnalazioni</span>
         </a>
-        <div id="listaSidebar" class="list-group list-group-flush border-bottom scrollarea" style="max-height: 80vh;margin-bottom: 10px; overflow-y:auto">
+        <div id="listaSidebar" class="list-group list-group-flush scrollarea" style="max-height: 80vh; margin-bottom: 10px; overflow-y:auto">
           <!-- INIZIO LISTA (ogni <a> è un elemento della lista) -->
           <!-- template 
           <div>
@@ -54,11 +63,20 @@
         <form class="needs-validation" novalidate="" onsubmit="event.preventDefault();" style="max-width: 55vw;">
           <div class="row g-3">
 
-            <img src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png" class="img-fluid col-6">
-
             <div>
               <input name="id" id="idAnimale" style="visibility: hidden">
             </div>
+
+            <!-- 3 elem organizer -->
+            <div class="row align-self-center d-flex flex-column align-items-center">
+              
+              <!-- colonna a sx -->
+              <a href="#" class="img-fluid col-6 align-self-center">
+                <img id="nomeImmagine" src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png" data-bs-toggle="modal" data-bs-target="#imgModal" style="height:100%; width:100%" class="align-self-center">
+              </a>
+
+            </div>
+            <!-- end of 3 elem organizer -->
             
             <div class="col-6">
               <label for="specie" class="form-label">Specie</label>
@@ -82,44 +100,54 @@
               <input type="text" class="form-control" id="luogo" placeholder="" readonly>
             </div>
 
+            <div class="col-12">
+              <label for="mappaDiv" class="form-label">Mappa</label>
+              <div id="mappaDiv" style="height: 50vh"></div>
+            </div>
+
             <div class="col-12" id="divDettagliSegnalazione" style="display: none">
               <label for="dettagliSegnalazione" class="form-label">Dettagli segnalazione</label>
               <input type="text" class="form-control" id="dettagliSegnalazione" placeholder="">
-              <!--<button id="confermaButton" class="btn btn-primary btn-md center-block" style="width: 100;" onclick="buttonListenerFunction('risolta')">Chiudi segnalazione</button>-->
+              <button id="confermaButton" class="btn btn-primary btn-md center-block" style="width: 100; margin-top: 15px">Chiudi segnalazione</button>
             </div>
 
           </div>
 
           <hr class="my-4">
 
-         <div class="row">
-    <div class=" col-sm-12 text-center">
-      <div id="divPulsanti">
-        <button id="btnSearch" class="btn btn-primary btn-md center-block" Style="width: 100;" onclick="buttonListenerFunction('risolta')" >Risolto</button>
-         <button id="btnClear" class="btn btn-danger btn-md center-block" Style="width: 100;" onclick="buttonListenerFunction('nonRisolta')">Non risolvibile</button>
-      </div>
-     </div>
-</div>
+          <div class="row">
+            <div class=" col-sm-12 text-center">
+              <div id="divPulsanti">
+                <button id="btnSearch" class="btn btn-primary btn-md center-block" Style="width: 100;" onclick="buttonListenerFunction('risolta')" >Risolto</button>
+                <button id="btnClear" class="btn btn-danger btn-md center-block" Style="width: 100;" onclick="buttonListenerFunction('nonRisolta')">Non risolvibile</button>
+              </div>
+            </div>
+          </div>
         </form>
+        <!-- modal per foto -->
+        <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-body">
+                <img id='immagineAnimaleModal' src="/assets/media/20820a81a70a4bd79f5fa77e1efa5d33.png" class="img-fluid">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- FINE DASHBOARD -->
       
     </div>
     <!-- FINE BODY PRINCIPALE -->
-
-
-    <footer class="footer bg-light mt-4 p-5">
-        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut
-            aliquip ex ea commodo consequat</p>
-    </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
     <script src="/assets/js/customScripts.js"></script>
-     
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script>
       $(window).on("load", function(){
         customOnload();
