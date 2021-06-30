@@ -1,5 +1,17 @@
 function customOnLoadForze(){
 
+  //Event listener searchBar
+  const searchButton = document.getElementById('searchButton');
+  const searchInput = document.getElementById('searchInput');
+  searchButton.addEventListener('click', () => {
+    const inputValue = searchInput.value;
+    fillList(inputValue);
+  });
+  searchInput.addEventListener('input', () => {
+    const inputValue = searchInput.value;
+    fillList(inputValue);
+  });
+
   //Event listener per bottone inserimento animali
   const dashboard = document.getElementById('dashboard');
 
@@ -16,9 +28,7 @@ function customOnLoadForze(){
       //append di tutti gli animali ritornati dal database
       segnalazioni.forEach((segnalazione, i)=>{
         if(segnalazione.stato == 'aperta'){
-          let myDiv = document.createElement('div');
-          myDiv.innerHTML = "<a onclick='onListElementClick(" + segnalazione.id + ")' id='" + segnalazione.id + "' class='list-group-item list-group-item-action py-3 lh-tight' aria-current='true'><div class='d-flex w-100 align-items-center justify-content-between'><strong id='titoloAnimale' class='mb-1'>" + segnalazione.specie + "</strong><small id='dataPreview'>" + segnalazione.dataRitrovamento + "</small></div><div id='luogoPreview' class='col-10 mb-1 small'>" + segnalazione.luogoRitrovamento + "</div></a>";
-          myList.appendChild(myDiv);
+          createListEntry(myList, segnalazione);
         }
       })
     },
@@ -173,4 +183,34 @@ function chiudiSegnalazione(stato){
       window.location.replace('/forze');
     }
   })
+}
+
+function createListEntry(myList, segnalazione){
+  let myDiv = document.createElement('div');
+  myDiv.innerHTML = "<a onclick='onListElementClick(" + segnalazione.id + ")' id='" + segnalazione.id + "' class='list-group-item list-group-item-action py-3 lh-tight' aria-current='true'><div class='d-flex w-100 align-items-center justify-content-between'><strong id='titoloAnimale' class='mb-1'>" + segnalazione.specie + "</strong><small id='dataPreview'>" + segnalazione.dataRitrovamento + "</small></div><div id='luogoPreview' class='col-10 mb-1 small'>" + segnalazione.luogoRitrovamento + "</div></a>";
+  myList.appendChild(myDiv);
+}
+
+function fillList(searchInput){
+    
+    // Chiamo DB per ottenere tutti gli animali
+    $.ajax({
+    url: './forze/get',
+    type: 'GET',
+    timeout: 5000,
+    success: function (segnalazioni) {
+
+      //lista sidebar alla quale appendere tutti gli animali
+      const myList = document.getElementById('listaSidebar');
+      myList.innerHTML = "";
+
+      //append di tutti gli animali ritornati dal database
+      segnalazioni.forEach((segnalazione, i)=>{
+        if(searchInput=="" || segnalazione.luogoRitrovamento.toLowerCase().includes(searchInput.toLowerCase()) || segnalazione.specie.toLowerCase() == searchInput.toLowerCase()){
+          createListEntry(myList, segnalazione);
+        }
+      })
+    }
+  })
+
 }

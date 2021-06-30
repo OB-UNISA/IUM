@@ -33,6 +33,8 @@ function save_segnalazione(){
         timeout: 5000,
         success: function (result) {
             document.getElementById('num_segnalazione').value = result.id
+            document.getElementById('code').value = result.id
+            document.getElementById("code").style.display = "block";
         },
         error: function (xhr, status, error) {
       }
