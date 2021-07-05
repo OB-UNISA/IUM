@@ -8,13 +8,19 @@ function get_segnalazione(){
         type: 'POST',
         timeout: 5000,
         success: function (segnalazione) {
-            document.getElementById('segnalazione_search').innerHTML = segnalazione
+            document.getElementById('segnalazione_search').style.display = "block";
+            document.getElementById('segnalazione_search').innerHTML = segnalazione;
         },
         error: function (xhr, status, error) {
       }
     })
 
 }
+function show_codice(){
+  document.getElementById("code").style.display = "block";
+
+}
+
 
 function save_segnalazione(){
 
@@ -23,8 +29,8 @@ function save_segnalazione(){
         'dataRitrovamento': document.getElementById('dataRitrovamento').value,
         'numeroEsemplari': document.getElementById('numeroEsemplari').value,
         'coordinate': document.getElementById('coordinate').value,
-    }
-
+     }
+    
     $.ajax({
         url: './segnalazioni/save',
         data: JSON.stringify(segnalazione),
